@@ -1,0 +1,7 @@
+open-weather:
+  weather-url: https://api.openweathermap.org/data/3.0/onecall?exclude=minutely&units=metric
+  geolocation-url: http://api.openweathermap.org/geo/1.0/direct
+  app-id: 2cc1e14d9f374307aa286c7fdcac0d1e
+  cache-ttl: 10 #minutes
+
+

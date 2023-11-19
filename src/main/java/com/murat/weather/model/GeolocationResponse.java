@@ -1,4 +1,7 @@
 package com.murat.weather.model;
 
-public record GeolocationResponse(String lat, String lon) {
+public record GeolocationResponse(
+        String lat,
+        String lon
+) {
 }
