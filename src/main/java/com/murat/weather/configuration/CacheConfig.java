@@ -1,11 +1,11 @@
 package com.murat.weather.configuration;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.murat.weather.constants.Constants;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
-import com.github.benmanes.caffeine.cache.Caffeine;
 
 import java.util.concurrent.TimeUnit;
 
