@@ -1,6 +1,9 @@
 package com.murat.weather.service;
 
 import com.murat.weather.constants.Constants;
+import com.murat.weather.dto.WeatherDto;
+import com.murat.weather.exception.ExceptionAdvice;
+import com.murat.weather.mapper.WeatherDtoMapper;
 import com.murat.weather.model.GeolocationResponse;
 import com.murat.weather.model.WeatherResponse;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,11 +17,11 @@ public class WeatherService {
     }
 
     @Cacheable(value = Constants.WEATHER_CACHE_NAME, key = "#city")
-    public WeatherResponse getWeatherByCityName(String city) {
+    public WeatherDto getWeatherByCityName(String city) {
 
         GeolocationResponse geolocation = getGeolocationFromApi(city);
         WeatherResponse weatherResponse = getWeatherFromApi(geolocation);
-        return weatherResponse;
+        return WeatherDtoMapper.mapToWeatherDto(weatherResponse);
     }
 
     private WeatherResponse getWeatherFromApi(GeolocationResponse geolocation) {
@@ -35,8 +38,7 @@ public class WeatherService {
         if (geolocations != null && geolocations.length > 0)
             return geolocations[0];
 
-        return null;
-        //return ResponseEntity.badRequest().body(String.format("Unable to find a city with given name %s", city));
+        throw new ExceptionAdvice.GeolocationNotFoundException(city);
     }
 
     private String getGeolocationApiUrl(String city) {

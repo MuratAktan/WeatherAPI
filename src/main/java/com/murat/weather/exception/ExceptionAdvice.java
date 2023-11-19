@@ -13,4 +13,14 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    public static class GeolocationNotFoundException extends RuntimeException {
+        public GeolocationNotFoundException(String city) {
+            super("Geolocation not found for given city name: " + city);
+        }
+    }
+
+    @ExceptionHandler(GeolocationNotFoundException.class)
+    public ResponseEntity<String> handleGeolocationNotFound(GeolocationNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
